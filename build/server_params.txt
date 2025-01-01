@@ -1,0 +1,60 @@
+Scrn_H 1024
+Scrn_V 768
+Noise_Gn 0
+In_Gn 100
+Out_Gn 100
+Gma_Gn 0 
+Cycle_Tme 90
+Fade_Tme 45
+Full_Screen_Enable 0
+
+---------
+
+Scrn_H 1024
+Scrn_V 768
+Noise_Gn 27
+In_Gn 80
+Out_Gn 100
+Gma_Gn 20
+Cycle_Tme 90
+Fade_Tme 45
+Full_Screen_Enable 0
+
+---------
+
+Scrn_H 1024
+Scrn_V 768
+Noise_Gn 50
+In_Gn 80
+Out_Gn 90
+Gma_Gn 70
+Cycle_Tme 90
+Fade_Tme 45
+Full_Screen_Enable 1
+
+---------
+
+Scrn_H 1024
+Scrn_V 768
+Noise_Gn 65
+In_Gn 60
+Out_Gn 125
+Gma_Gn 100
+Cycle_Tme 90
+Fade_Tme 45
+Full_Screen_Enable 1
+
+---------
+
+Scrn_H 1024
+Scrn_V 768
+Noise_Gn 95
+In_Gn 25
+Out_Gn 170
+Gma_Gn 100
+Cycle_Tme 90
+Fade_Tme 45
+Full_Screen_Enable 1
+
+
+

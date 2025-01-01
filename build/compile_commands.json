@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/pi1/Desktop/SamTests/Video_Times_Two/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -I/home/pi1/Desktop/SamTests/Video_Times_Two/.. -isystem /usr/local/include/opencv4 -O3 -DNDEBUG -std=c++17 -o CMakeFiles/Two_Videos.dir/Two_Videos_Noise.cpp.o -c /home/pi1/Desktop/SamTests/Video_Times_Two/Two_Videos_Noise.cpp",
+  "file": "/home/pi1/Desktop/SamTests/Video_Times_Two/Two_Videos_Noise.cpp"
+},
+{
+  "directory": "/home/pi1/Desktop/SamTests/Video_Times_Two/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++ -I/home/pi1/Desktop/SamTests/Video_Times_Two/.. -isystem /usr/local/include/opencv4 -O3 -DNDEBUG -std=c++17 -o CMakeFiles/Two_Videos.dir/mixer_processor.cpp.o -c /home/pi1/Desktop/SamTests/Video_Times_Two/mixer_processor.cpp",
+  "file": "/home/pi1/Desktop/SamTests/Video_Times_Two/mixer_processor.cpp"
+}
+]

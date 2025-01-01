@@ -1,0 +1,10 @@
+Cam_H_Size 800
+Cam_V_Size 600
+Screen_H_Size 1024
+Screen_V_Size 768
+Motion_Window_H_Size_Multiplier 75
+Motion_Window_V_Size_Multiplier 75 
+Cycle_Time 3
+Noise_Threshold 5
+Motion_Threshold 5000
+

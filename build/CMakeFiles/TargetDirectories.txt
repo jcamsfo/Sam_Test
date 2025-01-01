@@ -1,0 +1,3 @@
+/home/pi1/Desktop/SamTests/Video_Times_Two/build/CMakeFiles/Two_Videos.dir
+/home/pi1/Desktop/SamTests/Video_Times_Two/build/CMakeFiles/edit_cache.dir
+/home/pi1/Desktop/SamTests/Video_Times_Two/build/CMakeFiles/rebuild_cache.dir
