@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 
 #
-# check for dependencies supplied by parent project
+# check for dependencies
 #
 
-if(NOT opencv_POPULATED OR OpenCV_POPULATED)
-  message(FATAL_ERROR "${PROJECT_NAME}: missing dependency OpenCV")
-endif()
+find_package(OpenCV REQUIRED)
 
-if(NOT GTK3_FOUND)
-  message(FATAL_ERROR "${PROJECT_NAME}: missing dependency GTK3")
-endif()
+# GTK3 seems to only support cmake via pkg-config, see:
+#   https://docs.gtk.org/gtk3/getting_started.html
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
 #
 # config shared library
@@ -19,6 +18,7 @@ endif()
 add_library(OpenCVGtkWindowController SHARED
   OpenCVGtkWindowController.cpp
 )
+
 # `--std=c++17` (not gnu++17)
 set_target_properties(OpenCVGtkWindowController PROPERTIES
   CXX_STANDARD 17
@@ -32,6 +32,6 @@ target_include_directories(OpenCVGtkWindowController PUBLIC
 )
 
 target_link_libraries(OpenCVGtkWindowController
-  ${OpenCV_LIBRARIES}
+  ${OpenCV_LIBS}
   ${GTK3_LINK_LIBRARIES}
 )
