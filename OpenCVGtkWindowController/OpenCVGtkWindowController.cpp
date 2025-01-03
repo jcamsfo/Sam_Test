@@ -33,19 +33,19 @@ OpenCVGtkWindowController::OpenCVGtkWindowController(
 }
 
 void OpenCVGtkWindowController::attach(const char* opencv_window_name) {
-    const std::string attach_exception_stem {
+    const std::string exception_stem {
         "OpenCVGtkWindowController::attach(const char*): "
     };
 
     if (!opencv_window_name) {
         throw std::invalid_argument(
-            attach_exception_stem + "null opencv_window_name");
+            exception_stem + "null opencv_window_name");
     }
     _title = std::string_view{opencv_window_name};
     _display = gdk_display_get_default();
     if (!_display) {
         throw std::runtime_error(
-            attach_exception_stem + "failed to get default GdkDisplay");
+            exception_stem + "failed to get default GdkDisplay");
     }
     // OpenCV highgui module API only allows modification of windows by title,
     //   not by pointer or reference, and cv::setWindowTitle allows title
@@ -57,19 +57,19 @@ void OpenCVGtkWindowController::attach(const char* opencv_window_name) {
         static_cast<GtkWidget*>(cvGetWindowHandle(opencv_window_name));
     if (!_handle) {
         throw std::invalid_argument(
-            attach_exception_stem + "could not find OpenCV window: '" +
+            exception_stem + "could not find OpenCV window: '" +
             opencv_window_name + '\'');
     }
     _window = gtk_widget_get_window(_handle);
     if (!_window) {
         throw std::runtime_error(
-            attach_exception_stem + "failed to get GdkWindow from GtkWidget");
+            exception_stem + "failed to get GdkWindow from GtkWidget");
     }
     _blank_cursor =
         gdk_cursor_new_for_display(_display, GDK_BLANK_CURSOR);
     if (!_blank_cursor) {
         throw std::runtime_error(
-            attach_exception_stem + "failed to create GDK_BLANK_CURSOR");
+            exception_stem + "failed to create GDK_BLANK_CURSOR");
     }
 }
 
@@ -148,12 +148,18 @@ void OpenCVGtkWindowController::decrement_frames_until_hiding_cursor() {
 void OpenCVGtkWindowController::fullscreen_on_monitor(const uint32_t monitor_i) {
     if (window_is_destroyed())
         return;
+    const std::string exception_stem {
+        "OpenCVGtkWindowController::fullscreen_on_monitor(const uint32_t): "
+    };
     // default is Debian 1-indexing from left, GTK/GDK 0-indexing from left
     const uint32_t n_monitors { get_n_monitors() };
-    if (monitor_i < 0 || monitor_i >= n_monitors) {
+    if (n_monitors == 0) {
+        throw std::runtime_error(exception_stem + "no monitors detected");
+    }
+    if (monitor_i >= n_monitors) {
         throw std::invalid_argument(
-            std::string("OpenCVGtkWindowController::fullscreen_on_monitor: ") +
-            "expected monitor_i from 0 to " + std::to_string(n_monitors));
+            exception_stem + "expected monitor_i from 0 to " +
+            std::to_string(n_monitors - 1));
     }
     gdk_window_fullscreen_on_monitor(_window, monitor_i);
     // need to also update OpenCV API fullscreen status
