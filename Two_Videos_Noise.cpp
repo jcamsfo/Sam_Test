@@ -15,6 +15,8 @@
 
 #include <opencv2/opencv.hpp>
 
+#include "OpenCVGtkWindowController.hpp"
+
 #include "mixer_processor.h"
 
 using namespace std;
@@ -112,6 +114,9 @@ int main(int argc, char *argv[])
 
     cv::namedWindow("Grayscale Image Left", cv::WINDOW_NORMAL);
     cv::namedWindow("Grayscale Image Right", cv::WINDOW_NORMAL);
+    // low-level window controls to allow for cursor hiding and monitor assignment
+    OpenCVGtkWindowController L_win_ctrls { "Grayscale Image Left" };
+    OpenCVGtkWindowController R_win_ctrls { "Grayscale Image Right" };
 
     cv::Mat image_Read_1 = cv::imread("004.tif", cv::IMREAD_UNCHANGED);
     cv::Mat image_Read_2 = cv::imread("169.tif", cv::IMREAD_UNCHANGED);
