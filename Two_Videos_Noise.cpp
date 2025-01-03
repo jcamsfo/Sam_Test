@@ -63,8 +63,6 @@ int main(int argc, char *argv[])
     Server_Parameters_Main Server_Params;
     std::string control_params_in;
 
-    bool Full_Screen_Local = false;
-
     int Fade_Timer = 0;
     // int Fade_Timer_TC = 64; //  at  30 fps  64/30 seconds
     // int Fade_Time = 38;
@@ -114,9 +112,19 @@ int main(int argc, char *argv[])
 
     cv::namedWindow("Grayscale Image Left", cv::WINDOW_NORMAL);
     cv::namedWindow("Grayscale Image Right", cv::WINDOW_NORMAL);
+
     // low-level window controls to allow for cursor hiding and monitor assignment
     OpenCVGtkWindowController L_win_ctrls { "Grayscale Image Left" };
     OpenCVGtkWindowController R_win_ctrls { "Grayscale Image Right" };
+
+    // begin in fullscreen with hidden cursor, one window per monitor
+    // (assumes monitor 1 (index 0) is primary and monitor 2 is to right)
+    L_win_ctrls.hide_cursor();
+    L_win_ctrls.enable_auto_hiding_cursor();
+    L_win_ctrls.fullscreen_on_monitor(0);
+    R_win_ctrls.hide_cursor();
+    R_win_ctrls.enable_auto_hiding_cursor();
+    R_win_ctrls.fullscreen_on_monitor(1);
 
     cv::Mat image_Read_1 = cv::imread("004.tif", cv::IMREAD_UNCHANGED);
     cv::Mat image_Read_2 = cv::imread("169.tif", cv::IMREAD_UNCHANGED);
@@ -140,23 +148,6 @@ int main(int argc, char *argv[])
 
     for (long loop_count = 0; loop_count < max_loop; loop_count++)
     {
-
-        // full screen or not for one of the output videos
-        if ((Full_Screen_Local))
-        {
-            cv::setWindowProperty("Grayscale Image Left", cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN); // Set window to fullscreen
-             cv::setWindowProperty("Grayscale Image Right", cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN); // Set window to fullscreen
-
-        }
-        else
-        {
-            cv::setWindowProperty("Grayscale Image Left", cv::WND_PROP_FULLSCREEN, cv::WINDOW_NORMAL); // Set window to fullscreen
-            cv::setWindowProperty("Grayscale Image Right", cv::WND_PROP_FULLSCREEN, cv::WINDOW_NORMAL); // Set window to fullscreen 
-            cv::moveWindow("Grayscale Image Left", 100, 100);
-            cv::moveWindow("Grayscale Image Right", 1124, 100);                                                                                                //     cv::setWindowProperty("Grayscale Image 4", cv::WND_PROP_FULLSCREEN, cv::WINDOW_NORMAL); // Set window to fullscreen
-        }
-
-
         if (loop_count % 90 == 89)
         {
             image3 = image2.clone();
@@ -231,7 +222,13 @@ int main(int argc, char *argv[])
             break;
         }
         else if (key == 'f')
-            Full_Screen_Local = !Full_Screen_Local;
+        {
+            L_win_ctrls.toggle_fullscreen();
+            R_win_ctrls.toggle_fullscreen();
+        }
+
+        L_win_ctrls.decrement_frames_until_hiding_cursor();
+        R_win_ctrls.decrement_frames_until_hiding_cursor();
 
         // check for long frame times
         end_check = std::chrono::high_resolution_clock::now();
