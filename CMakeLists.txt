@@ -10,6 +10,8 @@ pkg_check_modules(AVUTIL libavutil REQUIRED)
 pkg_check_modules(SWSCALE libswscale REQUIRED)
 find_package(OpenCV REQUIRED)
 
+add_subdirectory(OpenCVGtkWindowController)
+
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -25,7 +27,6 @@ include_directories(${AVFORMAT_INCLUDE_DIRS}
                     ${AVUTIL_INCLUDE_DIRS}
                     ${SWSCALE_INCLUDE_DIRS}
                     ${OpenCV_INCLUDE_DIRS})
-
 
 
 add_executable(${PROJECT_NAME} Two_Videos_Noise.cpp mixer_processor.cpp )
