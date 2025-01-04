@@ -48,11 +48,9 @@ void OpenCVGtkWindowController::attach(const char* opencv_window_name) {
             exception_stem + "failed to get default GdkDisplay");
     }
     // OpenCV highgui module API only allows modification of windows by title,
-    //   not by pointer or reference, and cv::setWindowTitle allows title
-    //   updates, so there is no guarantee that opencv_window_name will continue
-    //   to map to the same window. Getting the handle here both gives a unique
+    //   not by pointer or reference. Getting the handle here both gives a unique
     //   identifier for the life of the window, and provides a gateway to the
-    //   GTK and GDK APIs
+    //   GUI backend APIs, GTK/GDK in this case.
     _handle =
         static_cast<GtkWidget*>(cvGetWindowHandle(opencv_window_name));
     if (!_handle) {
@@ -173,8 +171,8 @@ void OpenCVGtkWindowController::toggle_fullscreen() {
     if (window_is_destroyed())
         return;
     // similar to fullscreen_on_monitor, we face a tradeoff of needing to
-    //   keep the OpenCV window state the same as the underlying Gtk/GdkWindow,
-    //   versus referencing windows by title not handle
+    //   keep the OpenCV window state synced with the underlying Gtk/GdkWindow,
+    //   versus the advantages of modifying windows by handle not title
     if (!_fullscreen) {
         //gdk_window_fullscreen(_window);
         cv::setWindowProperty(_title.data(), cv::WND_PROP_FULLSCREEN,
