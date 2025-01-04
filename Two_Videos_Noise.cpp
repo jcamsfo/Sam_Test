@@ -119,12 +119,12 @@ int main(int argc, char *argv[])
 
     // begin in fullscreen with hidden cursor, one window per monitor
     // (assumes monitor 1 (index 0) is primary and monitor 2 is to right)
-    L_win_ctrls.hide_cursor();
-    L_win_ctrls.enable_auto_hiding_cursor();
-    L_win_ctrls.fullscreen_on_monitor(0);
-    R_win_ctrls.hide_cursor();
-    R_win_ctrls.enable_auto_hiding_cursor();
-    R_win_ctrls.fullscreen_on_monitor(1);
+    L_win_ctrls.hideCursor();
+    L_win_ctrls.enableAutoHidingCursor();
+    L_win_ctrls.fullscreenOnMonitor(0);
+    R_win_ctrls.hideCursor();
+    R_win_ctrls.enableAutoHidingCursor();
+    R_win_ctrls.fullscreenOnMonitor(1);
 
     cv::Mat image_Read_1 = cv::imread("004.tif", cv::IMREAD_UNCHANGED);
     cv::Mat image_Read_2 = cv::imread("169.tif", cv::IMREAD_UNCHANGED);
@@ -223,12 +223,12 @@ int main(int argc, char *argv[])
         }
         else if (key == 'f')
         {
-            L_win_ctrls.toggle_fullscreen();
-            R_win_ctrls.toggle_fullscreen();
+            L_win_ctrls.toggleFullscreen();
+            R_win_ctrls.toggleFullscreen();
         }
 
-        L_win_ctrls.decrement_frames_until_hiding_cursor();
-        R_win_ctrls.decrement_frames_until_hiding_cursor();
+        L_win_ctrls.decrementFramesUntilHidingCursor();
+        R_win_ctrls.decrementFramesUntilHidingCursor();
 
         // check for long frame times
         end_check = std::chrono::high_resolution_clock::now();

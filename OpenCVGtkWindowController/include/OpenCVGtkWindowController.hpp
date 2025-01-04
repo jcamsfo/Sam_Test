@@ -81,33 +81,33 @@ public:
     // attach controller to new OpenCV window
     void attach(const char* opencv_window_name);
 
-    void hide_cursor();
-    void show_cursor();
+    void hideCursor();
+    void showCursor();
 
-    inline bool window_is_destroyed() {
+    inline bool windowIsDestroyed() {
         return gdk_window_is_destroyed(_window);
     }
 
-    inline void auto_hiding_cursor_delay(const uint32_t frame_delay) {
+    inline void autoHidingCursorDelay(const uint32_t frame_delay) {
         _auto_hiding_cursor_delay =
             (frame_delay < _MAX_AUTO_HIDING_CURSOR_DELAY) ?
             frame_delay : _MAX_AUTO_HIDING_CURSOR_DELAY;
     }
 
-    inline uint32_t auto_hiding_cursor_delay() {
+    inline uint32_t autoHidingCursorDelay() {
         return _auto_hiding_cursor_delay;
     }
 
-    void enable_auto_hiding_cursor(const uint32_t frame_delay =
-                                   _DEFAULT_AUTO_HIDING_CURSOR_DELAY);
-    void disable_auto_hiding_cursor();
-    void decrement_frames_until_hiding_cursor();
+    void enableAutoHidingCursor(const uint32_t frame_delay =
+                                _DEFAULT_AUTO_HIDING_CURSOR_DELAY);
+    void disableAutoHidingCursor();
+    void decrementFramesUntilHidingCursor();
 
-    inline uint32_t get_n_monitors() {
+    inline uint32_t getNMonitors() {
         return gdk_display_get_n_monitors(_display);
     }
-    void fullscreen_on_monitor(const uint32_t monitor_i);
-    void toggle_fullscreen();
+    void fullscreenOnMonitor(const uint32_t monitor_i);
+    void toggleFullscreen();
 };
 
 

@@ -11,7 +11,7 @@ void _onMouseEvent(GtkWidget* /*widget*/, GdkEvent* /*event*/,
     if (!user_data)
         return;
     auto controller { static_cast<OpenCVGtkWindowController*>(user_data) };
-    controller->show_cursor();
+    controller->showCursor();
     controller->_frames_until_hiding_cursor =
         controller->_auto_hiding_cursor_delay;
 }
@@ -72,29 +72,29 @@ void OpenCVGtkWindowController::attach(const char* opencv_window_name) {
 }
 
 OpenCVGtkWindowController::~OpenCVGtkWindowController() {
-    disable_auto_hiding_cursor();
+    disableAutoHidingCursor();
 }
 
-void OpenCVGtkWindowController::hide_cursor() {
-    if (window_is_destroyed() || _cursor_hidden)
+void OpenCVGtkWindowController::hideCursor() {
+    if (windowIsDestroyed() || _cursor_hidden)
         return;
     _cursor = gdk_window_get_cursor(_window);
     gdk_window_set_cursor(_window, _blank_cursor);
     _cursor_hidden = true;
 }
 
-void OpenCVGtkWindowController::show_cursor() {
-    if (window_is_destroyed() || !_cursor_hidden)
+void OpenCVGtkWindowController::showCursor() {
+    if (windowIsDestroyed() || !_cursor_hidden)
         return;
     // restore previous cursor (if nullptr, should defer to desktop default)
     gdk_window_set_cursor(_window, _cursor);
     _cursor_hidden = false;
 }
 
-void OpenCVGtkWindowController::enable_auto_hiding_cursor(
+void OpenCVGtkWindowController::enableAutoHidingCursor(
     const uint32_t frame_delay/* = _DEFAULT_AUTO_HIDING_CURSOR_DELAY*/) {
-    auto_hiding_cursor_delay(frame_delay);
-    if (window_is_destroyed() || _auto_hiding_cursor)
+    autoHidingCursorDelay(frame_delay);
+    if (windowIsDestroyed() || _auto_hiding_cursor)
         return;
     _frames_until_hiding_cursor = _auto_hiding_cursor_delay;
     // mimics OpenCV icvOnMouse from:
@@ -115,42 +115,42 @@ void OpenCVGtkWindowController::enable_auto_hiding_cursor(
     _auto_hiding_cursor = true;
 }
 
-void OpenCVGtkWindowController::disable_auto_hiding_cursor() {
-    if (window_is_destroyed() || !_auto_hiding_cursor)
+void OpenCVGtkWindowController::disableAutoHidingCursor() {
+    if (windowIsDestroyed() || !_auto_hiding_cursor)
         return;
     // both casts to void* required here to compile, even as not required by
     //   g_signal_connect
     g_signal_handlers_disconnect_by_func(_handle,
                                          (void*)_onMouseEvent, (void*)this);
-    show_cursor();
+    showCursor();
     _auto_hiding_cursor = false;
 }
 
-void OpenCVGtkWindowController::decrement_frames_until_hiding_cursor() {
-    if (window_is_destroyed() || !_auto_hiding_cursor || _cursor_hidden)
+void OpenCVGtkWindowController::decrementFramesUntilHidingCursor() {
+    if (windowIsDestroyed() || !_auto_hiding_cursor || _cursor_hidden)
         return;
     if (_frames_until_hiding_cursor == 0) {
-        hide_cursor();
+        hideCursor();
         _cursor_hidden = true;
         return;
     }
     if (_frames_until_hiding_cursor == _auto_hiding_cursor_delay) {
         // mouse event has restarted delay
-        show_cursor();
+        showCursor();
         _cursor_hidden = false;
     }
     --_frames_until_hiding_cursor;
 }
 
 // header prohibits window retitling to prevent desync of _title and _handle
-void OpenCVGtkWindowController::fullscreen_on_monitor(const uint32_t monitor_i) {
-    if (window_is_destroyed())
+void OpenCVGtkWindowController::fullscreenOnMonitor(const uint32_t monitor_i) {
+    if (windowIsDestroyed())
         return;
     const std::string exception_stem {
         "OpenCVGtkWindowController::fullscreen_on_monitor(const uint32_t): "
     };
     // default is Debian 1-indexing from left, GTK/GDK 0-indexing from left
-    const uint32_t n_monitors { get_n_monitors() };
+    const uint32_t n_monitors { getNMonitors() };
     if (n_monitors == 0) {
         throw std::runtime_error(exception_stem + "no monitors detected");
     }
@@ -167,8 +167,8 @@ void OpenCVGtkWindowController::fullscreen_on_monitor(const uint32_t monitor_i) 
 }
 
 // header prohibits window retitling to prevent desync of _title and _handle
-void OpenCVGtkWindowController::toggle_fullscreen() {
-    if (window_is_destroyed())
+void OpenCVGtkWindowController::toggleFullscreen() {
+    if (windowIsDestroyed())
         return;
     // similar to fullscreen_on_monitor, we face a tradeoff of needing to
     //   keep the OpenCV window state synced with the underlying Gtk/GdkWindow,
