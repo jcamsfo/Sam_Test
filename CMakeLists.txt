@@ -39,6 +39,12 @@ target_link_libraries(${PROJECT_NAME} ${AVFORMAT_LIBRARIES}
                       ${SWSCALE_LIBRARIES}
                       ${OpenCV_LIBS})
 
+target_compile_definitions(${PROJECT_NAME} PUBLIC
+  # quotes passed into macros (source expects string literal)
+  TIF_004_PATH_SL="${PROJECT_SOURCE_DIR}/004.tif"
+  TIF_043_PATH_SL="${PROJECT_SOURCE_DIR}/043.tif"
+  TIF_169_PATH_SL="${PROJECT_SOURCE_DIR}/169.tif"
+)
 
 
 

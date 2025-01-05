@@ -126,9 +126,9 @@ int main(int argc, char *argv[])
     R_win_ctrls.enableAutoHidingCursor();
     R_win_ctrls.fullscreenOnMonitor(1);
 
-    cv::Mat image_Read_1 = cv::imread("004.tif", cv::IMREAD_UNCHANGED);
-    cv::Mat image_Read_2 = cv::imread("169.tif", cv::IMREAD_UNCHANGED);
-    cv::Mat image_Read_3 = cv::imread("043.tif", cv::IMREAD_UNCHANGED);
+    const cv::Mat image_Read_1 { cv::imread(TIF_004_PATH_SL, cv::IMREAD_UNCHANGED) };
+    const cv::Mat image_Read_2 { cv::imread(TIF_169_PATH_SL, cv::IMREAD_UNCHANGED) };
+    const cv::Mat image_Read_3 { cv::imread(TIF_043_PATH_SL, cv::IMREAD_UNCHANGED) };
 
     image1 = image_Read_1.clone();
     image2 = image_Read_2.clone();
