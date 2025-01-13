@@ -31,6 +31,8 @@ include_directories(${AVFORMAT_INCLUDE_DIRS}
 
 add_executable(${PROJECT_NAME} Two_Videos_Noise.cpp mixer_processor.cpp )
 
+target_link_libraries(${PROJECT_NAME} OpenCVGtkWindowController)
+
 target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 
 target_link_libraries(${PROJECT_NAME} ${AVFORMAT_LIBRARIES}
