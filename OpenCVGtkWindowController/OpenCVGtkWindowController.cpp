@@ -1,11 +1,14 @@
+/**
+ * @file OpenCVGtkWindowController.cpp
+ */
+
+
 #include "OpenCVGtkWindowController.hpp"
 
 #include <exception>
 #include <string>
 
 
-// could not make a member function due to implicit `this` param making
-//   signature not GCallback-castable
 void _onMouseEvent(GtkWidget* /*widget*/, GdkEvent* /*event*/,
                    gpointer user_data) {
     if (!user_data)
@@ -15,7 +18,6 @@ void _onMouseEvent(GtkWidget* /*widget*/, GdkEvent* /*event*/,
     controller->_frames_until_hiding_cursor =
         controller->_auto_hiding_cursor_delay;
 }
-
 
 OpenCVGtkWindowController::OpenCVGtkWindowController(
     const char* opencv_window_name) {
